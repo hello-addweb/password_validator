@@ -1,39 +1,125 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+# Password Validator Package
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+```password_validator_package``` A Flutter Password validator package is used to validate password addresses both in Dart and Flutter. It uses Regex for validation. It is purely based on Dart, with no other dependencies. I shared a complete example of a project in which I have used this password validation in Flutter.  ✨
 
-## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Installation
 
-## Getting started
+Create a new project with the command
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+flutter create MyApp
+```
+
+Add
+
+```yaml
+password_validator_package: ...
+```
+
+to your `pubspec.yaml` of your flutter project.
+**OR**
+run
+
+```yaml
+flutter pub add password_validator_package
+```
+
+in your project's root directory.
+
+In your library add the following import:
+
+```dart
+import 'package:password_validator_package/password_validator_package.dart';
+```
+
+For help getting started with Flutter, view the online [documentation](https://flutter.io/).
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Password Validator Package',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    String password = "addweb@123";
+    String password2 = 'Add@123';
+    bool isValidPassword = PasswordValidator.validatePassword(password);
+    bool isValidPassword2 = PasswordValidator.validatePassword(password2);
+
+    log("isValidPassword  $isValidPassword");
+    log("isValidPassword22  $isValidPassword2");
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Password Validation"),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            children: [
+              Text("$isValidPassword"),
+              TextFormField(
+                validator: (value) {
+                  /// your logic
+                  if (value!.isEmpty) {
+                    return "Please Enter Password";
+                  } else if (PasswordValidator.validatePassword(value)) {
+                    //return "Please Enter Valid Password";
+                    return "Password should be between 8 to 15 characters and should contain atleast one uppercase, one lowercase ,one number and one special character.";
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(),
+                  errorBorder: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(),
+                  disabledBorder: OutlineInputBorder(),
+                  focusedErrorBorder: OutlineInputBorder(),
+                  hintText: 'Enter Password',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 ```
 
-## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## Constructor
+
+#### Basic
+
+| Parameter | Default | Description          | Required |
+|-----------|:--------|:---------------------|:--------:|
+| password  | -       | User Input password. |   True   |

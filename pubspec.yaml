@@ -1,7 +1,10 @@
 name: password_validator_package
-description: "A new Flutter project."
+
+description: "A Password validator Flutter package is used to validate password for both in Dart and Flutter."
 version: 0.0.1
-homepage:
+# author: AddWeb Solution Dev(Sultan Singh)
+homepage: https://github.com/hello-addweb/password_validator
+
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
